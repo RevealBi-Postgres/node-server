@@ -27,14 +27,11 @@ const userContextProvider = (request) => {
 // Step 2: Data source provider
 const dataSourceProvider = async (userContext, dataSource) => {
   if (dataSource instanceof reveal.RVPostgresDataSource) {
-      dataSource.host = "s0106docker2.infragistics.local";
-      dataSource.database = "Northwind";
-      dataSource.schema = "public";
-  } else if (dataSource instanceof reveal.RVSnowflakeDataSource) {
-    dataSource.account = "v900923";
-    dataSource.host = "v900923.snowflakecomputing.com";
-    dataSource.database = "SNOWFLAKE_SAMPLE_DATA";		
-  } else {
+    dataSource.host = process.env.POSTGRES_HOST;
+    dataSource.database = process.env.POSTGRES_DATABASE;
+    dataSource.schema = process.env.POSTGRES_SCHEMA;
+      
+  }  else {
     return null;
   }
   return dataSource;
@@ -43,7 +40,7 @@ const dataSourceProvider = async (userContext, dataSource) => {
 // Step 3: Authentication provider
 const authenticationProvider = async (userContext, dataSource) => {  
   if (dataSource instanceof reveal.RVPostgresDataSource || dataSource instanceof reveal.RVSnowflakeDataSource) {
-    return new reveal.RVUsernamePasswordDataSourceCredential("jason", "jason"); 
+    return new reveal.RVUsernamePasswordDataSourceCredential("", ""); 
   }
 }
 

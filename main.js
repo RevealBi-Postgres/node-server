@@ -8,7 +8,7 @@ const reveal = require('./reveal');
 const revealDom = require('./revealdom');
 
 const app = express();
-const port = 7218;
+const port = 5111;
 
 // Middleware
 app.use(cors()); 
